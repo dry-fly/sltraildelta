@@ -4,10 +4,10 @@ import sqlite3
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-f = open("requestContent.txt", "rb")
-mountainReport = f.read()
-f.close
-soup = BeautifulSoup(mountainReport, 'html.parser')
+#f = open("requestContent.txt", "rb")
+#mountainReport = f.read()
+#f.close
+#soup = BeautifulSoup(mountainReport, 'html.parser')
 
 
 mountainReport = requests.get('https://www.sugarloaf.com/mountain-report')
