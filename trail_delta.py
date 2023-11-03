@@ -108,6 +108,6 @@ for i in dbCursor.fetchall():
     count = count + 1
 print("----- TOTAL SNOW MAKING: (%d) \n" % count)
                  
-#dbCursor.close()
-#dbConn.close()
+dbCursor.close()
+dbConn.close()
     
