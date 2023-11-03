@@ -1,3 +1,4 @@
+#Sugarloaf Lift Status
 import re
 import requests
 import sqlite3
@@ -57,20 +58,17 @@ for item in soup.find("section", class_="conditionsLifts").find_all("div", class
   data_entry(runTime,liftName,status,detailStatus)
   status = detailStatus = 'NULL'
 
-dbCursor.execute("SELECT * FROM SL_LIFTS")
+dbCursor.execute("SELECT DISTINCT time FROM SL_LIFTS ORDER BY time DESC")
+dbConn.commit()
+availTimes = dbCursor.fetchall()
+secondDate = availTimes[0][0]
+firstDate = availTimes[1][0]
+
+dbCursor.execute("SELECT * FROM SL_LIFTS WHERE time = '" + secondDate + "'")
 dbConn.commit()
 for item in dbCursor.fetchall():
     print(item)
-"""
-dbCursor.execute("SELECT trail, status FROM SL_TRAILS WHERE status = 'Open' AND time = '" + secondDate + "'")
-dbConn.commit()
-print("----- OPEN TRAILS:")
-count = 0
-for i in dbCursor.fetchall():
-    print(i)
-    count = count + 1
-print("----- TOTAL OPEN: (%d) \n" % count)
-"""                
+              
 dbCursor.close()
 dbConn.close()
     
