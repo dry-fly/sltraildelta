@@ -1,3 +1,4 @@
+#Sugarloaf Trail Delta
 import re
 import requests
 import sqlite3
@@ -32,7 +33,8 @@ def icon_key(imageSrc):
         'black-diamond.svg' : {"difficulty": "Black"},
         'double-black.svg' : {"difficulty": "Expert"},
         'bh-icon-groomer.png' : {"grooming": "Grooming"},
-        'snow-making.svg' : {"making": "Snow Making"}
+        'snow-making.svg' : {"making": "Snow Making"},
+        'yellow-caution.png' : {"status": "Event"}
     }
     return switch.get(imageSrc,1)
 
@@ -81,23 +83,23 @@ print("----- TRAIL DELTA:  " + firstDate + " --> " + secondDate)
 print(list(set(secondList) - set(firstList)))
 print("-----\n")
 
-dbCursor.execute("SELECT trail, status FROM SL_TRAILS WHERE status = 'Open' AND time = '" + secondDate + "'")
+dbCursor.execute("SELECT trail, status FROM SL_TRAILS WHERE status = 'Open' AND time = '" + secondDate + "' ORDER BY trail")
 dbConn.commit()
 print("----- OPEN TRAILS:")
 count = 0
 for i in dbCursor.fetchall():
-    print(i)
+    #print(i)
     count = count + 1
 print("----- TOTAL OPEN: (%d) \n" % count)
-dbCursor.execute("SELECT trail, grooming FROM SL_TRAILS WHERE grooming = 'Grooming' AND time = '" + secondDate + "'")
+dbCursor.execute("SELECT trail, grooming FROM SL_TRAILS WHERE grooming = 'Grooming' AND time = '" + secondDate + "' ORDER BY trail")
 dbConn.commit()
 print("----- GROOMING TRAILS:")
 count = 0
 for i in dbCursor.fetchall():
-    print(i)
+    #print(i)
     count = count + 1
 print("----- TOTAL GROOMING: (%d) \n" % count)
-dbCursor.execute("SELECT trail, making FROM SL_TRAILS WHERE making = 'Snow Making' AND time = '" + secondDate + "'")
+dbCursor.execute("SELECT trail, making FROM SL_TRAILS WHERE making = 'Snow Making' AND time = '" + secondDate + "' ORDER BY trail")
 dbConn.commit()
 print("----- SNOW MAKING TRAILS:")
 count = 0
@@ -106,6 +108,6 @@ for i in dbCursor.fetchall():
     count = count + 1
 print("----- TOTAL SNOW MAKING: (%d) \n" % count)
                  
-dbCursor.close()
-dbConn.close()
+#dbCursor.close()
+#dbConn.close()
     
