@@ -45,7 +45,8 @@ status = difficulty = grooming = making = 'NULL'
 now = datetime.now()
 runTime = now.strftime("%Y%m%d-%H:%M-EST")
 
-for item in soup.find_all("div", class_="breakInsideAvoid js-trail"):
+#for item in soup.find_all("div", class_="breakInsideAvoid js-trail"):
+for item in soup.find_all("div", class_="js-trail trailStatus breakInsideAvoid"):
   trail = item.text.replace('\n','').strip()  
   element = {}
   for image in item.find_all('img'):
@@ -88,7 +89,7 @@ dbConn.commit()
 print("----- OPEN TRAILS:")
 count = 0
 for i in dbCursor.fetchall():
-    #print(i)
+    print(i)
     count = count + 1
 print("----- TOTAL OPEN: (%d) \n" % count)
 dbCursor.execute("SELECT trail, grooming FROM SL_TRAILS WHERE grooming = 'Grooming' AND time = '" + secondDate + "' ORDER BY trail")
